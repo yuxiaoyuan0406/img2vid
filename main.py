@@ -18,11 +18,15 @@ def main(opt: argparse.Namespace):
         img_list.sort(key=sort_by_name)
     print('{} image(s) found'.format(len(img_list)))
 
+    # get image shape
     _ = cv2.imread(os.path.join(img_dir, img_list[0]))
     img_shape = _.shape
     print('image shape: {}'.format(img_shape))
 
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    # vc2.Mat.shape is a tuple like ( height, width, channel )
+    # but a cv2.VideoWriter take a tuple as ( width, height )
+    # so reverse a tuple by [::-1] and take the last 2 elements by [-2::]
     writer = cv2.VideoWriter(vid_dir, fourcc, opt.fps, img_shape[::-1][-2::])
 
     for img in img_list:
