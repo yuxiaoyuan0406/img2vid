@@ -7,3 +7,7 @@ convert images into a video
 ```bash
 python main.py --help
 ```
+
+## requirements
+
+opencv
